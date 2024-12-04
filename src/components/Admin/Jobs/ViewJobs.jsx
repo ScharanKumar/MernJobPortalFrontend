@@ -1,19 +1,68 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Box,  Button,  CircularProgress, Table, TableCell, TableRow, TableBody, TableContainer, Paper, Container, TableHead, TablePagination } from "@mui/material";
+import { Box,  Button,  CircularProgress, Table, TableCell, TableRow, TableBody,
+     TableContainer, Paper, Container, TableHead, TablePagination ,
+     Dialog,
+     DialogActions,
+     DialogContent,
+     DialogContentText,
+     DialogTitle, Snackbar, Alert} from "@mui/material";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import axios from "axios";
-// import LocationOnIcon from '@mui/icons-material/LocationOn';
-// import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-// import WorkIcon from '@mui/icons-material/Work';
-// import EventIcon from '@mui/icons-material/Event';
-// import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const JobsList = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedJob, setSelectedJob] = useState("")
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  const handleDeleteClick = (id) => {
+    setSelectedJob(id);
+    setOpenDialog(true); 
+};
+
+const showSnackbar = (message, severity = "success") => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setOpenSnackbar(true);
+};
+
+const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
+};
+
+  const handleConfirmDelete = async () => {
+ 
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.delete(
+            `${process.env.REACT_APP_API_URL}/admin/delete/job/${selectedJob}`,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+            }
+        );
+        setJobs(jobs.filter((q) => q._id !== selectedJob));
+        setOpenDialog(false); 
+        showSnackbar(response.data.message);
+    } catch (error) {
+        console.error("Error deleting Job:", error);
+        showSnackbar("Error occured while deleting Job", "error");
+    }
+};
+
+const handleCloseDialog = () => {
+    setOpenDialog(false); // Close the dialog without deleting
+};
   
+
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
   };
@@ -259,197 +308,32 @@ const JobsList = () => {
                                             to={`/admin-dashboard/job-edit/${job._id}`} state={{ jobData: job }}
                                             style={{textDecoration:'none'}}>
                                             <Button
-                                                // onClick={() =>
-                                                //     handleOpen(
-                                                //         student.studentId
-                                                //     )
-                                                // }
+                                                
                                                 variant="contained"
                                             >
                                                 Edit
                                             </Button>
                                             </Link>
                                             <Button
-                                                // onClick={() =>
-                                                //     handleOpen(
-                                                //         student.studentId
-                                                //     )
-                                                // }
+                                            onClick={() =>
+                                                handleDeleteClick(
+                                                    job._id
+                                                )
+                                            }
+                                                
                                                 variant="contained"
                                             >
                                                 Delete
                                             </Button>
                                             <Link to={`/admin-dashboard/job-applications/${job._id}`} style={{textDecoration:'none'}}>
                                             <Button
-                                                // onClick={() =>
-                                                //     handleOpen(
-                                                //         student.studentId
-                                                //     )
-                                                // }
+                                                
                                                 variant="contained"
                                             >
                                                 Applications
                                             </Button>
                                             </Link>
-                                            {/* <Modal
-                                                open={
-                                                    open === student.studentId
-                                                }
-                                                onClose={handleClose}
-                                                aria-labelledby="modal-modal-title"
-                                                aria-describedby="modal-modal-description"
-                                            >
-                                                <Box sx={style}>
-                                                    <TextField
-                                                        disabled
-                                                        id="outlined-disabled"
-                                                        label="studentId"
-                                                        defaultValue={
-                                                            student.studentId
-                                                        }
-                                                        sx={{
-                                                            margin: "10px",
-                                                            width: "350px",
-                                                        }}
-                                                    />
-                                                    <TextField
-                                                        disabled
-                                                        id="outlined-disabled"
-                                                        label="Student Name"
-                                                        defaultValue={
-                                                            student.name
-                                                        }
-                                                        sx={{
-                                                            margin: "10px",
-                                                            width: "350px",
-                                                        }}
-                                                    />
-                                                    <TextField
-                                                        disabled
-                                                        id="outlined-disabled"
-                                                        label="class"
-                                                        defaultValue={
-                                                            student.class
-                                                        }
-                                                        sx={{
-                                                            margin: "10px",
-                                                            width: "350px",
-                                                        }}
-                                                    />
-                                                    <TextField
-                                                        disabled
-                                                        id="outlined-disabled"
-                                                        label="schoolId"
-                                                        defaultValue={
-                                                            student.school[0]
-                                                                .schoolId
-                                                        }
-                                                        sx={{
-                                                            margin: "10px",
-                                                            width: "350px",
-                                                        }}
-                                                    />
-                                                    {student.batches.map(
-                                                        (every) => (
-                                                            <TextField
-                                                                disabled
-                                                                id="outlined-disabled"
-                                                                label="Batch Id"
-                                                                defaultValue={
-                                                                    every.batchId
-                                                                }
-                                                                sx={{
-                                                                    margin: "10px",
-                                                                    width: "350px",
-                                                                }}
-                                                            />
-                                                        )
-                                                    )}
-                                                    {student.courses.map(
-                                                        (every) => (
-                                                            <TextField
-                                                                disabled
-                                                                id="outlined-disabled"
-                                                                label="Course Id"
-                                                                defaultValue={
-                                                                    every.courseId
-                                                                }
-                                                                sx={{
-                                                                    margin: "10px",
-                                                                    width: "350px",
-                                                                }}
-                                                            />
-                                                        )
-                                                    )}
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Father Name"
-                                                        variant="outlined"
-                                                        onChange={(e) =>
-                                                            setFathername(
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        defaultValue={
-                                                            student.fatherName
-                                                        }
-                                                        sx={{
-                                                            margin: "10px",
-                                                            width: "350px",
-                                                        }}
-                                                    />
-                                                    <TextField
-                                                        id="outlined-basic"
-                                                        label="Password"
-                                                        type={
-                                                            showPassword
-                                                                ? "text"
-                                                                : "password"
-                                                        }
-                                                        variant="outlined"
-                                                        onChange={(e) =>
-                                                            setPassWord(
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        defaultValue={
-                                                            student.password
-                                                        }
-                                                        sx={{
-                                                            margin: "10px",
-                                                            width: "350px",
-                                                        }}
-                                                    />
-                                                    <Button
-                                                        variant="text"
-                                                        color="secondary"
-                                                        sx={{
-                                                            color: "black",
-                                                            marginRight: "10px",
-                                                        }}
-                                                        onClick={
-                                                            toggleShowPassword
-                                                        }
-                                                    >
-                                                        {showPassword
-                                                            ? "Hide Password"
-                                                            : "Show Password"}
-                                                    </Button>
-
-                                                    <Button
-                                                        sx={{ color: "black" }}
-                                                        onClick={() =>
-                                                            updateStudentDetails(
-                                                                student.studentId,
-                                                                student.password,
-                                                                student.fatherName
-                                                            )
-                                                        }
-                                                    >
-                                                        Update
-                                                    </Button>
-                                                </Box>
-                                            </Modal> */}
+                                            
                                         </Box>
                                     </TableCell>
                                 </TableRow>
@@ -469,128 +353,45 @@ const JobsList = () => {
                 />
             </Box>
             </Container>
-    {/* <Box p={2}>
-      <Grid container sx={{display:'flex', flexDirection:'row', justifyContent:'space-between', flexWrap:'wrap'}}>
-        {jobs.map((job) => (
-          <Grid item xs={12} xl={5} key={job._id} sx={{margin:{
-            xs:'15px',
-            xl:'30px'
-          }
-          
-          }}>
-            <Card >
-              <Link to={`/admin-dashboard/job-details/${job._id}`} style={{textDecoration:'none'}}>
-              
-              <CardContent >
-                <Box sx={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                  <Box>
-                <Typography variant="subtitle1" color="textSecondary" >
-                  {job.companyName}
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                  {job.jobRole}
-                </Typography>
-                </Box>
-                <img style={{height:'50px', backgroundSize:'cover'}} src={getImageOfCompany(job.companyImage)} alt={job.companyName}/>
-                </Box>
-                <Box sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
-                    <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start',alignItems:'flex-start',margin:'15px' }}>
-                    <Typography variant="body2" color="textSecondary">
-                        <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                            <div>
-                        <LocationOnIcon color="primary" />
-                        </div>
-                        <span style={{marginLeft:'5px'}}>Location</span>
-                        </div>
-                    
-                </Typography>
-                
-                <Typography variant="body2" >
-                  {job.location.join(", ")}
-                </Typography>
-                    </Box>
 
-                    <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start',alignItems:'flex-start',margin:'15px' }}>
-                    <Typography variant="body2" color="textSecondary">
-                        <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                            <div>
-                        <AttachMoneyIcon color="primary" />
-                        </div>
-                        <span style={{marginLeft:'5px'}}>Salary</span>
-                        </div>
-                    
-                </Typography>
-                
-                <Typography variant="body2" >
-                {job.salary ? `₹${job.salary}` : "Not Disclosed"}
-                </Typography>
-                    </Box>
-                
-                    <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start',alignItems:'flex-start',margin:'15px' }}>
-                    <Typography variant="body2" color="textSecondary">
-                        <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                            <div>
-                        <WorkIcon color="primary" />
-                        </div>
-                        <span style={{marginLeft:'5px'}}>No of Openings</span>
-                        </div>
-                    
-                </Typography>
-                
-                <Typography variant="body2" >
-                {job.noOfOpenings}
-                </Typography>
-                    </Box>
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+                <DialogTitle>Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Are you sure you want to delete this Job? This
+                        action cannot be undone.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleConfirmDelete} color="error">
+                        Delete
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
-                    <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start', alignItems:'flex-start',margin:'15px' }}>
-                    <Typography variant="body2" color="textSecondary">
-                        <div style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                            <div>
-                        <EventIcon color="primary" />
-                        </div>
-                        <span style={{marginLeft:'5px'}}>Apply By:</span>
-                        </div>
-                    
-                </Typography>
-                
-                <Typography variant="body2" >
-                {new Date(job.lastDateToApply).toLocaleString('en-US', {
-    // weekday: 'short', // Day of the week (e.g., "Mon")
-    year: 'numeric',
-    month: 'short', // Month (e.g., "Sep")
-    day: 'numeric', // Day of the month (e.g., 21)
-    hour: '2-digit', // Hour (e.g., 10)
-    minute: '2-digit', // Minute (e.g., 30)
-    // second: '2-digit', // Second (e.g., 59)
-    hour12: true, // Use AM/PM format
-  })}
-                </Typography>
-                    </Box>
-                
-                
-                 <Typography variant="body2" color="textSecondary">
-                  Apply By: {new Date(job.lastDateToApply).toLocaleString('en-US', {
-    weekday: 'short', // Day of the week (e.g., "Mon")
-    year: 'numeric',
-    month: 'short', // Month (e.g., "Sep")
-    day: 'numeric', // Day of the month (e.g., 21)
-    hour: '2-digit', // Hour (e.g., 10)
-    minute: '2-digit', // Minute (e.g., 30)
-    second: '2-digit', // Second (e.g., 59)
-    hour12: true, // Use AM/PM format
-  })}
-                </Typography> 
-                </Box>
-              </CardContent>
-              <Box sx={{textAlign:'right'}}>
-              <Button >View Details <ArrowForwardIcon color="primary" /></Button>
-              </Box>
-              </Link>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Box> */}
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert
+                    onClose={handleSnackbarClose}
+                    severity={snackbarSeverity}
+                    sx={{ width: "100%" }}
+                    icon={
+                        snackbarSeverity === "success" ? (
+                            <CheckCircleOutlineIcon fontSize="inherit" />
+                        ) : undefined
+                    }
+                >
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
+
     </>
   );
 };

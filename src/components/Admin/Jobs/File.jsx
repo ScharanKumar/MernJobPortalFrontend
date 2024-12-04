@@ -4,7 +4,6 @@ import {
     TableRow,
     IconButton,
     Button,
-    Typography
 } from "@mui/material";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
@@ -74,12 +73,16 @@ function File({ details, openDocumentId, updateJobApplication }) {
                     </IconButton> */}
                     {details.email}
                 </TableCell>
+                <TableCell>
+                    {details.resumeStatus}
+                </TableCell>
                 <TableCell >
                     {details.resumeShortlisted === undefined ?
                     
                     <div><Button variant="contained" sx={{marginRight:'10px'}} onClick={shortlist}>Shortlist</Button>
                     <Button variant="contained" onClick={reject}>Reject</Button></div> :
-                    <Typography>{details.resumeShortlisted ? "Shortlisted" : "Rejected"}</Typography>
+                    <div><Button variant="contained" disabled sx={{marginRight:'10px'}} >Shortlist</Button>
+                    <Button variant="contained" disabled >Reject</Button></div> 
 }
                 </TableCell>
             </TableRow>

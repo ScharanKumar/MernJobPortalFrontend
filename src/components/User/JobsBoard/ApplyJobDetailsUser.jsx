@@ -136,149 +136,6 @@ const JobDetails = ()=>{
 
       return (
         <>
-        {/* <Box sx={{ padding: 2 }}>
-          <Snackbar
-                    open={openSnackbar}
-                    autoHideDuration={6000}
-                    onClose={() => setOpenSnackbar(false)}
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                >
-                    <Alert
-                        onClose={() => setOpenSnackbar(false)}
-                        severity={alertType}
-                        sx={{ width: "100%" }}
-                    >
-                        {message}
-                    </Alert>
-                </Snackbar>
-          <Card sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            
-            <CardMedia
-              component="img"
-              image={getImageOfCompany(job.companyImage)} // Assuming you have a correct path to the image
-              alt={job.companyName}
-              sx={{ width: 200, height: 200, objectFit: 'cover', marginTop: 2 }}
-            />
-    
-            <CardContent sx={{ textAlign: 'center' }}>
-              
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                {job.companyName}
-              </Typography>
-    
-             
-              <Typography variant="h5" color="textSecondary" sx={{ marginBottom: 2 }}>
-                {job.jobRole}
-              </Typography>
-    
-              
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>Salary:</strong> {job.salary}
-              </Typography>
-    
-             
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>No of Openings:</strong> {job.noOfOpenings}
-              </Typography>
-    
-             
-              <Typography variant="body1" sx={{ marginBottom: 1 }}>
-                <strong>Location:</strong> {job.location.join(', ')}
-              </Typography>
-    
-              
-              <Typography variant="body2" color="textSecondary" sx={{ marginBottom: 2 }}>
-                <strong>Apply By:</strong> {new Date(job.lastDateToApply).toLocaleString('en-US', {
-    // weekday: 'short', // Day of the week (e.g., "Mon")
-    year: 'numeric',
-    month: 'short', // Month (e.g., "Sep")
-    day: 'numeric', // Day of the month (e.g., 21)
-    hour: '2-digit', // Hour (e.g., 10)
-    minute: '2-digit', // Minute (e.g., 30)
-    // second: '2-digit', // Second (e.g., 59)
-    hour12: true, // Use AM/PM format
-  })}
-              </Typography>
-            </CardContent>
-          </Card>
-    
-          
-          <Box sx={{ marginTop: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Eligibility Criteria:
-            </Typography>
-            <List>
-              <ListItem>
-                <ListItemText primary={<div dangerouslySetInnerHTML={{ __html: job.eligibilityCriteria }} />} />
-              </ListItem>
-            </List>
-          </Box>
-    
-          
-          <Box sx={{ marginTop: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              About the Company:
-            </Typography>
-            <List>
-              <ListItem>
-                <ListItemText primary={<div dangerouslySetInnerHTML={{ __html: job.aboutCompany }} />} />
-              </ListItem>
-            </List>
-          </Box>
-    
-          
-          <Box sx={{ marginTop: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Important Notes:
-            </Typography>
-            <List>
-              <ListItem>
-                <ListItemText primary={<div dangerouslySetInnerHTML={{ __html: job.importantNotes }} />} />
-              </ListItem>
-            </List>
-          </Box>
-    
-          <Divider sx={{ marginY: 3 }} />
-    
-          
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h6">Required Skills:</Typography>
-              <List>
-                {job.skill.map((skill, index) => (
-                  <ListItem key={index}>
-                    <ListItemText primary={skill} />
-                  </ListItem>
-                ))}
-              </List>
-            </Grid>
-          </Grid>
-          <Typography>Resume File</Typography>
-                    <TextField
-                        fullWidth
-                        variant="outlined"
-                        type="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                        sx={{marginTop:'15px', marginBottom:"15px"}}
-                    />
-                    <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            // required
-          />
-        </Grid>
-        </Grid>
-        <Button variant="contained"
-          color="primary"
-          sx={{ padding: "10px", marginTop:'10px' }} onClick={handleApplyJob}>Apply</Button>
-        </Box> */}
-
-
         <Grid container sx={{ flex: { xs: "none", md: 1 }, boxSizing:'border-box', backgroundColor:'white', borderRadius:'20px', borderColor:'#e3e0e0', borderStyle:'solid', borderWidth:'1px' }}>
         <Grid item
                   xs={12}
@@ -421,6 +278,7 @@ const JobDetails = ()=>{
             </ListItem>
           </List>
         </Box>
+        <Box sx={{backgroundColor:'#f1f1f5', padding:'20px', borderRadius:'5px', textAlign:'center'}}>
         <Typography variant="h6" sx={{ fontWeight:'600', color:'#434242'}}>Resume File</Typography>
                     <TextField
                         fullWidth
@@ -443,8 +301,11 @@ const JobDetails = ()=>{
         </Grid>
         <Button variant="contained"
           color="primary"
-          sx={{ padding: "10px", marginTop:'10px' }} onClick={handleApplyJob}>Apply</Button>
+          sx={{ padding: "10px", marginTop:'10px', width:'100px' }} onClick={handleApplyJob}>Apply</Button>
+          </Box>
         </Grid>
+
+       
   
         
   <Grid  item

@@ -73,14 +73,6 @@ export default function AdminSidebar() {
                                 <ListItemText primary="View Jobs" />
                             </ListItemButton>
                         </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton
-                                onClick={() => handleNavigation("/admin-dashboard/job-applications")}
-                                sx={{ ...listItemButtonStyles, pl: 4 }}
-                            >
-                                <ListItemText primary="Job applications" />
-                            </ListItemButton>
-                        </ListItem>
                     </List>
                 </Collapse>
             </List>

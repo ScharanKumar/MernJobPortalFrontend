@@ -19,7 +19,7 @@ const EditJob = () => {
     skill: [],
     salary: "",
     lastDateToApply: null,
-    noOfOpenings: null,
+    noOfOpenings: 0,
   });
   const [jobData, setJobData] = useState(null)
   const [newLocation, setNewLocation] = useState("");

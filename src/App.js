@@ -7,7 +7,6 @@ import Dashboard from "./components/Admin/Dashboard";
 import CreateJob from "./components/Admin/Jobs/CreateJob"
 import ViewJobs from "./components/Admin/Jobs/ViewJobs"
 import JobDetails from "./components/Admin/Jobs/JobDetails"
-import JobApplications from "./components/Admin/Jobs/JobApplications"
 import JobApplicationsOfAJob from "./components/Admin/Jobs/JobApplicationsOfAJob"
 import EditJob from "./components/Admin/Jobs/EditJob"
 
@@ -44,7 +43,6 @@ const App = () => {
         <Route path="view-jobs" element={<ViewJobs />} />
         <Route path="job-details/:id" element={<JobDetails />} />
         <Route path="job-edit/:id" element={<EditJob />} />
-        <Route path="job-applications" element={<JobApplications />} />
         <Route path="job-applications/:id" element={<JobApplicationsOfAJob />} />
         {/* Add other nested routes as needed */}
       </Route>
