@@ -27,6 +27,7 @@ const JobDetails = ()=>{
                 // setJobs(response.data.jobs);
                 console.log("RSS",response)
                 setJob(response.data)
+                console.log("OKOK ", response.data.companyImage)
                 setLoading(false)
           } catch (error) {
             console.error("Error fetching jobs:", error);
@@ -45,26 +46,26 @@ const JobDetails = ()=>{
           </Box>
         );
       }
-      const getImageOfCompany = (job) => {
+    //   const getImageOfCompany = (job) => {
     
-        // Step 1: Replace all backslashes with forward slashes
-        const modifiedString = job.replace(/\\/g, '/');
+    //     // Step 1: Replace all backslashes with forward slashes
+    //     const modifiedString = job.replace(/\\/g, '/');
         
     
-        // Step 2: Find the index of "/uploads"
-        const uploadsIndex = modifiedString.indexOf("/uploads");
+    //     // Step 2: Find the index of "/uploads"
+    //     const uploadsIndex = modifiedString.indexOf("/uploads");
     
-        // Step 3: If "/uploads" exists, extract the substring starting from "/uploads"
-        if (uploadsIndex !== -1) {
-            const extractedString = modifiedString.substring(uploadsIndex); // Extract from "/uploads" to the end
-            const imageUrl = `http://localhost:4000${extractedString.slice(8)}`; // Concatenate with the base URL
+    //     // Step 3: If "/uploads" exists, extract the substring starting from "/uploads"
+    //     if (uploadsIndex !== -1) {
+    //         const extractedString = modifiedString.substring(uploadsIndex); // Extract from "/uploads" to the end
+    //         const imageUrl = `http://localhost:4000${extractedString.slice(8)}`; // Concatenate with the base URL
     
-            return (imageUrl) // Return the image URL
-        } else {
-            console.log("No /uploads found in the string");
-            return null; // Return null or handle as needed
-        }
-    }
+    //         return (imageUrl) // Return the image URL
+    //     } else {
+    //         console.log("No /uploads found in the string");
+    //         return null; // Return null or handle as needed
+    //     }
+    // }
 
       return (
   //       <Box sx={{ padding: 2 }}>
@@ -309,7 +310,8 @@ const JobDetails = ()=>{
           <Box sx={{display:'flex', flexDirection:'column', marginLeft:'75px'}}>
           <CardMedia
               component="img"
-              image={getImageOfCompany(job.companyImage)} // Assuming you have a correct path to the image
+              // image={getImageOfCompany(job.companyImage)} // Assuming you have a correct path to the image
+              image={job.companyImage} 
               alt={job.companyName}
               sx={{ width: 100, backgroundSize:'cover', objectFit: 'cover', marginTop: 2 }}
             />

@@ -41,7 +41,8 @@ function File({ details, openDocumentId, updateJobApplication }) {
     }
 
     const handleOpenDocumentId = () => {
-        const resumeUrl = getModifiedUrlOfResume(details.resume)
+        // const resumeUrl = getModifiedUrlOfResume(details.resume)
+        const resumeUrl = details.resume;
         openDocumentId(resumeUrl);
     };
 
