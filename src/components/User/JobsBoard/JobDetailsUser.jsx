@@ -204,7 +204,7 @@ const JobDetails = ()=>{
           <Box sx={{display:'flex', flexDirection:'column', marginLeft:'75px'}}>
           <CardMedia
               component="img"
-              image={getImageOfCompany(job.companyImage)} // Assuming you have a correct path to the image
+              image={job.companyImage} // Assuming you have a correct path to the image
               alt={job.companyName}
               sx={{ width: 100, backgroundSize:'cover', objectFit: 'cover', marginTop: 2 }}
             />

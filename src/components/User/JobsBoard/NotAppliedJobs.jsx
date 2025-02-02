@@ -97,7 +97,7 @@ const JobsList = () => {
                   {job.jobRole}
                 </Typography>
                 </Box>
-                <img style={{height:'50px', backgroundSize:'cover'}} src={getImageOfCompany(job.companyImage)} alt={job.companyName}/>
+                <img style={{height:'50px', backgroundSize:'cover'}} src={job.companyImage} alt={job.companyName}/>
                 </Box>
                 <Box sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
                     <Box sx={{display:'flex', flexDirection:'column', justifyContent:'flex-start',alignItems:'flex-start',margin:'15px' }}>
