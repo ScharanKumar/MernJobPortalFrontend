@@ -60,7 +60,7 @@ function File({ details, openDocumentId, updateJobApplication }) {
                         <IconButton size="small" onClick={handleOpenDocumentId}>
                             <InsertDriveFileIcon sx={{ color: "gray" }} />
                         </IconButton>
-                        <div>{getModifiedUrlOfResume(details.resume).slice(22)}</div>
+                        <div>{details.resume}</div>
                     </div>
                 </TableCell>
 

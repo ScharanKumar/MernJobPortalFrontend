@@ -81,6 +81,7 @@ const JobDetails = ()=>{
     
 
     const openDocumentId = (id) => {
+        console.log("OIII", id);
         setDocumentId(id);
         setIsFileModalOpen(true);
     };
@@ -281,6 +282,7 @@ const JobDetails = ()=>{
                             overflow: "hidden",
                         }}
                     >
+                        
 
 <iframe title="Resume" src={documentId} style={{ width: "100%",
                                 height: "100%",
