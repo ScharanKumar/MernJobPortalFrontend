@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import {useState, useEffect} from 'react'
 import axios from "axios";
-import { Box, Dialog, Button, DialogTitle, DialogContent, TablePagination, Table,TableHead,
+import { Box, TableContainer, Container, Paper, Dialog, Button, DialogTitle, DialogContent, TablePagination, Table,TableHead,
      TableRow, TableCell, IconButton, Typography, CircularProgress } from "@mui/material";
 import File from "./File"
 // import FilterAltIcon from "@mui/icons-material/FilterAlt";
@@ -141,8 +141,18 @@ const JobDetails = ()=>{
     }
     {jobApplications.length !==0 && 
     <>
-          <Table >
-                        <TableHead>
+    <Container>
+     <TableContainer
+                component={Paper}
+                elevation={3}
+                sx={{
+                    marginTop: "10px",
+                    overflowX: "auto",
+                    width: "100%",
+                }}
+            >
+          <Table sx={{ width: "100%" }}>
+                        <TableHead sx={{ width: "100%" }}>
                             <TableRow>
                             <TableCell
                                 sx={{
@@ -160,7 +170,7 @@ const JobDetails = ()=>{
                                     }}
                                 >
                                     <Box>
-                                        <Typography sx={{marginRight:'10px'}}>File Name</Typography>
+                                        <Typography sx={{marginRight:'10px'}}>File</Typography>
                                     </Box>
                                     <Box>
                                         {/* <IconButton
@@ -222,6 +232,7 @@ const JobDetails = ()=>{
                             ))}
                         </TableHead>
                     </Table>
+                    </TableContainer>
                     <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <TablePagination
                     rowsPerPageOptions={[10, 20, 30, 40]}
@@ -232,7 +243,9 @@ const JobDetails = ()=>{
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
+                
             </Box>
+            </Container>
                     <Button
         variant="contained"
         color="primary"

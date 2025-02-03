@@ -19,26 +19,7 @@ function File({ details, openDocumentId, updateJobApplication }) {
         updateJobApplication(details, status)
     }
    console.log("DET", details)
-    const getModifiedUrlOfResume = (job) => {
     
-        // Step 1: Replace all backslashes with forward slashes
-        const modifiedString = job.replace(/\\/g, '/');
-        
-    
-        // Step 2: Find the index of "/uploads"
-        const uploadsIndex = modifiedString.indexOf("/uploads");
-    
-        // Step 3: If "/uploads" exists, extract the substring starting from "/uploads"
-        if (uploadsIndex !== -1) {
-            const extractedString = modifiedString.substring(uploadsIndex); // Extract from "/uploads" to the end
-            const imageUrl = `http://localhost:4000${extractedString.slice(8)}`; // Concatenate with the base URL
-    
-            return (imageUrl) // Return the image URL
-        } else {
-            console.log("No /uploads found in the string");
-            return null; // Return null or handle as needed
-        }
-    }
 
     const handleOpenDocumentId = () => {
         // const resumeUrl = getModifiedUrlOfResume(details.resume)
@@ -60,7 +41,7 @@ function File({ details, openDocumentId, updateJobApplication }) {
                         <IconButton size="small" onClick={handleOpenDocumentId}>
                             <InsertDriveFileIcon sx={{ color: "gray" }} />
                         </IconButton>
-                        <div>{details.resume}</div>
+                        <div>Preview resume</div>
                     </div>
                 </TableCell>
 
@@ -80,9 +61,9 @@ function File({ details, openDocumentId, updateJobApplication }) {
                 <TableCell >
                     {details.resumeShortlisted === undefined ?
                     
-                    <div><Button variant="contained" sx={{marginRight:'10px'}} onClick={shortlist}>Shortlist</Button>
+                    <div style={{display:'flex', flexDirection:"row"}}><Button variant="contained" sx={{marginRight:'10px'}} onClick={shortlist}>Shortlist</Button>
                     <Button variant="contained" onClick={reject}>Reject</Button></div> :
-                    <div><Button variant="contained" disabled sx={{marginRight:'10px'}} >Shortlist</Button>
+                    <div style={{display:'flex', flexDirection:"row"}}><Button variant="contained" disabled sx={{marginRight:'10px'}} >Shortlist</Button>
                     <Button variant="contained" disabled >Reject</Button></div> 
 }
                 </TableCell>
